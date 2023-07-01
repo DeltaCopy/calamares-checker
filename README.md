@@ -1,2 +1,6 @@
-# calamares-checker
-Verifies packages inside each calamares yaml file exist
+# calamares-netinstall-checker
+Verifies whether packages can be installed inside each Calamares netinstall-yaml file.
+
+```python
+python check-netinstall.py --path [path to netinstall yaml files]
+```
