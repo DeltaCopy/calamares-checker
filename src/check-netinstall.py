@@ -56,17 +56,17 @@ def main():
                 for file in results:
                     if len(results[file]) > 0:
                         for pkg in results[file]:
-                            get_package_info(pkg)
+                            get_package_info(pkg, file)
 
         else:
             logger.error("Path '%s' does not exist" % path)
             sys.exit(1)
 
 
-def get_package_info(package):
+def get_package_info(package, yaml_file):
     logger.info("Searching for package '%s'" % package)
     pacman_package_search = ["pacman", "-Ss", package]
-
+    logger.info("Yaml file = %s" % yaml_file)
     output = []
     with subprocess.Popen(
         pacman_package_search,
@@ -147,21 +147,6 @@ def process_files(path, output):
                     results[file] = invalid_packages
 
     return results
-
-
-def run_process(cmd):
-    output = []
-    with subprocess.Popen(
-        cmd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        bufsize=1,
-        universal_newlines=True,
-    ) as process:
-        for line in process.stdout:
-            output.append(line.strip())
-
-    return output
 
 
 if __name__ == "__main__":
